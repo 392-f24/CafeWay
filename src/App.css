@@ -40,3 +40,70 @@
 button {
   font-size: calc(10px + 2vmin);
 }
+
+.App-header ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.App-header li {
+  margin: 5px 0;
+  background-color: #444;
+  padding: 10px;
+  border-radius: 5px;
+  color: white;
+}
+
+.App-header ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.App-header li {
+  margin: 10px 0;
+  background-color: #444;
+  padding: 10px;
+  border-radius: 5px;
+  color: white;
+}
+
+.App-header li ul {
+  margin-top: 5px;
+}
+
+input {
+  margin: 5px;
+  padding: 8px;
+  border-radius: 5px;
+  border: none;
+}
+.availability-section {
+  margin-top: 20px;
+}
+
+.availability-display {
+  margin-top: 10px;
+}
+
+.availability-item {
+  background-color: #555;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 5px;
+}
+
+input {
+  margin: 5px;
+  padding: 8px;
+  border-radius: 5px;
+  border: none;
+}
+
+button {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #61dafb;
+  border: none;
+  cursor: pointer;
+}
