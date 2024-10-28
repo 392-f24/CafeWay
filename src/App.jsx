@@ -181,7 +181,7 @@ function App() {
 
           <ul>
             {cafes.map((cafe, index) => (
-              <li key={index}>{cafe}</li>
+              <li className="cafe-card" key={index}>{cafe}</li>
             ))}
           </ul>
         </div>
