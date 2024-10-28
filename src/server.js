@@ -1,6 +1,7 @@
 import express from 'express';
 import http from 'http';
 import { Server } from 'socket.io';
+import { database, ref, set, push, onValue } from './firebase.js';
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -13,8 +14,24 @@ const io = new Server(server, {
   },
 });
 
-let reviews = []; // Store all reviews
-let availability = {}; // Store availability history for cafes
+// Firebase references
+const reviewsRef = ref(database, 'reviews');
+const availabilityRef = ref(database, 'availability');
+
+// Initialize in-memory storage
+let reviews = [];
+let availability = {};
+
+// Load initial data from Firebase
+onValue(reviewsRef, (snapshot) => {
+  reviews = snapshot.val() || [];
+  io.emit('updateReviews', reviews); // Emit to all clients when data changes
+});
+
+onValue(availabilityRef, (snapshot) => {
+  availability = snapshot.val() || {};
+  io.emit('updateAvailability', availability);
+});
 
 io.on('connection', (socket) => {
   console.log('A user connected:', socket.id);
@@ -23,15 +40,19 @@ io.on('connection', (socket) => {
   socket.emit('updateAvailability', availability);
 
   socket.on('newReview', (review) => {
-    reviews.push(review);
-    io.emit('updateReviews', reviews);
+    const newReviewRef = push(reviewsRef);
+    set(newReviewRef, review).then(() => {
+      // Firebase `onValue` listener will trigger and send updates to all clients
+    });
   });
 
   socket.on('newReply', ({ reviewId, text }) => {
-    const review = reviews.find((r) => r.id === reviewId);
-    if (review) {
-      review.replies.push(text);
-      io.emit('updateReviews', reviews);
+    const reviewIndex = reviews.findIndex((r) => r.id === reviewId);
+    if (reviewIndex !== -1) {
+      reviews[reviewIndex].replies.push(text);
+      set(reviewsRef, reviews).then(() => {
+        // Firebase `onValue` listener will handle broadcasting updated reviews
+      });
     }
   });
 
@@ -39,16 +60,16 @@ io.on('connection', (socket) => {
     const timestamp = new Date().toLocaleString();
     const update = { seating, outlets, timestamp };
 
-    // Initialize the availability history if not present
+    // Update availability for a cafe in Firebase
     if (!availability[cafeId]) {
       availability[cafeId] = { history: [] };
     }
-
-    // Add the new update to the history and keep only the last 4
     availability[cafeId].history.unshift(update);
     availability[cafeId].history = availability[cafeId].history.slice(0, 4);
 
-    io.emit('updateAvailability', availability);
+    set(availabilityRef, availability).then(() => {
+      // Firebase `onValue` listener will broadcast updates to all clients
+    });
   });
 
   socket.on('disconnect', () => {

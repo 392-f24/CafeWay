@@ -1,7 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getDatabase } from "firebase/database";
-import { useState, useEffect } from "react";
-import { ref, onValue } from "firebase/database";
+import { getDatabase, ref, onValue, set, push } from "firebase/database";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBAShMN-jJQYXa71FbLy0dXPoAY3uB9QZM",
@@ -10,9 +8,9 @@ const firebaseConfig = {
     storageBucket: "cafeway-12c73.appspot.com",
     messagingSenderId: "708766148172",
     appId: "1:708766148172:web:634a6007a0f867b5cdf6e9"
-  };
-  
+};
+
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
-export { database, provider };
+export { database, ref, onValue, set, push };
