@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import './App.css';
 
-const socket = io('http://localhost:3001'); 
+const socket = io('http://localhost:3001');
 
 function App() {
   const [reviews, setReviews] = useState([]);
@@ -11,6 +11,9 @@ function App() {
   const [selectedReview, setSelectedReview] = useState(null);
   const [replyText, setReplyText] = useState('');
   const [cafeStatus, setCafeStatus] = useState({ seating: '', outlets: '' });
+  const [address, setAddress] = useState('');
+  const [dist, setDist] = useState('');
+  const [cafes, setCafes] = useState([]); 
 
   useEffect(() => {
     socket.on('updateReviews', (updatedReviews) => setReviews(updatedReviews));
@@ -23,6 +26,37 @@ function App() {
       socket.off('updateAvailability');
     };
   }, []);
+
+  const findCafes = () => {
+    const radiusMeters = parseFloat(dist) * 1609.34; 
+
+    const geocoder = new window.google.maps.Geocoder();
+    geocoder.geocode({ address: address }, (results, status) => {
+      if (status === "OK" && results[0]) {
+        const location = results[0].geometry.location;
+
+        const service = new window.google.maps.places.PlacesService(document.createElement("div"));
+        service.nearbySearch(
+          {
+            location: location,
+            radius: radiusMeters,
+            type: "cafe",
+          },
+          (results, status) => {
+            if (status === window.google.maps.places.PlacesServiceStatus.OK) {
+              setCafes(results.map((place) => place.name));
+            } else {
+              alert("No cafes found within the specified radius.");
+              setCafes([]); 
+            }
+          }
+        );
+      } else {
+        alert("Invalid zip code or location not found.");
+        setCafes([]);
+      }
+    });
+  };
 
   const handleReviewSubmit = () => {
     if (newReview.trim()) {
@@ -125,6 +159,31 @@ function App() {
               </p>
             </div>
           ))}
+        </div>
+
+        <div className="cafes-nearby">
+          <h2>Cafes Near Me</h2>
+          <input
+            type="text"
+            placeholder="Enter zip code"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+          />
+          <input
+            type="number"
+            placeholder="Enter radius (in miles)"
+            value={dist}
+            onChange={(e) => setDist(e.target.value)}
+          />
+          <button onClick={findCafes}>
+            Search
+          </button>
+
+          <ul>
+            {cafes.map((cafe, index) => (
+              <li key={index}>{cafe}</li>
+            ))}
+          </ul>
         </div>
       </header>
     </div>
