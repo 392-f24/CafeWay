@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
+
+import { useAuthState, signInWithGoogle, firebaseSignOut } from './utilities/firebase'; 
+
 import { findCafes } from './utilities/findCafes';
+
 
 function App() {
   const [reviews, setReviews] = useState([]);
@@ -12,6 +16,19 @@ function App() {
   const [address, setAddress] = useState('');
   const [dist, setDist] = useState('');
   const [cafes, setCafes] = useState([]); 
+
+  const [user] = useAuthState(); 
+
+
+  const handleSignIn = async () => {
+    try {
+      await signInWithGoogle(); // Sign in with Google
+    } catch (error) {
+      console.error('Error signing in:', error);
+    }
+  };
+  
+  const handleLogout = () => firebaseSignOut();
 
   useEffect(() => {
   }, []);
@@ -73,7 +90,18 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h1>CafeWay</h1>
-
+        {user ? (
+              <>
+                <button className="btn btn-outline-dark" onClick={handleLogout}>
+                  Sign Out
+                </button>
+                <p>Welcome, {user.email}</p>
+              </>
+            ) : (
+              <button className="btn btn-outline-dark" onClick={handleSignIn}>
+                Sign In
+              </button>
+            )}
         <div>
           <input
             type="text"
