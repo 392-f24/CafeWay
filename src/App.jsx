@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import io from 'socket.io-client';
 import './App.css';
-
-const socket = io('https://cafeway-12c73.web.app/');
 
 function App() {
   const [reviews, setReviews] = useState([]);
@@ -16,15 +13,6 @@ function App() {
   const [cafes, setCafes] = useState([]); 
 
   useEffect(() => {
-    socket.on('updateReviews', (updatedReviews) => setReviews(updatedReviews));
-    socket.on('updateAvailability', (updatedAvailability) =>
-      setAvailability(updatedAvailability)
-    );
-
-    return () => {
-      socket.off('updateReviews');
-      socket.off('updateAvailability');
-    };
   }, []);
 
   const findCafes = () => {
@@ -61,25 +49,19 @@ function App() {
   const handleReviewSubmit = () => {
     if (newReview.trim()) {
       const review = { id: Date.now(), text: newReview, replies: [] };
-      socket.emit('newReview', review);
       setNewReview('');
     }
   };
 
   const handleReplySubmit = (reviewId) => {
     if (replyText.trim()) {
-      socket.emit('newReply', { reviewId, text: replyText });
       setReplyText('');
       setSelectedReview(null);
     }
   };
 
   const handleAvailabilityUpdate = (cafeId) => {
-    socket.emit('updateAvailability', {
-      cafeId,
-      seating: cafeStatus.seating,
-      outlets: cafeStatus.outlets,
-    });
+
   };
 
   return (
