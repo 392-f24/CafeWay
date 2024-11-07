@@ -1,0 +1,86 @@
+.banner-div {
+    height: 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem; 
+    font-family: 'Hind Vadodara', sans-serif;
+    font-weight: bolder;
+    color: #8A3323;
+    border-bottom: 2px solid #8A3323;
+}
+
+.logo-search-div {
+    display: flex;
+    align-items: center;
+}
+
+.logo-div {
+    height:100%;
+    display: flex;
+    align-items: center;
+    margin-right: 3rem;
+}
+
+.logo-div h1 {
+    margin-left: 0.5rem;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.logo-search-div form {
+    display: flex;
+    align-items: center;
+}
+
+.text-input {
+    width: 22rem;
+    height: 1.5rem;
+    border-bottom: 1px solid black;
+    border-radius: 0;
+    padding-left: 0.5rem;
+    font-size: 1rem;
+    font-family: 'Hind Vadodara', sans-serif;
+    margin-right: 0;
+    border-top-left-radius: 0.25rem;
+}
+
+.search-btn {
+    height: 2.6rem;
+    width: 3rem;
+    background-color: #8A3323;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0.65rem;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-bottom: 1px solid black;
+}
+
+.banner-buttons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.banner-btn {
+    text-align: center;
+    height:2.45rem;
+    width: 8rem;
+    background-color: #8A3323;
+    color: white;
+    font-family: 'Hind Vadodara', sans-serif;
+    font-weight: bold;
+    font-size: 1rem;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    margin: 0;
+}
+
+.banner-btn:hover {
+    background-color: #a85c43;
+}
