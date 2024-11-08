@@ -1,0 +1,31 @@
+{
+    "test_id": {
+        "cafeId": "ChIJ60vPsg_QD4gRE61MVG65nSs",
+        "content": "Great place for coffee and work!",
+        "category": "Review",
+        "date": "2024-11-07T14:30:00Z",
+        "replies": {
+            "replyId_1": "I agree, the coffee is fantastic!",
+            "replyId_2": "The WiFi is also great for working!"
+        },
+        "uid": "user_1"
+    },
+    "test_id_2": {
+        "cafeId": "ChIJ60vPsg_QD4gRE61MVG65nSs",
+        "content": "Could use more seating during peak hours.",
+        "category": "Suggestion",
+        "date": "2024-11-08T09:00:00Z",
+        "replies": {},
+        "uid": "user_2"
+    },
+    "test_id_3": {
+        "cafeId": "ChIJ60vPsg_QD4gRE61MVG65nSs",
+        "content": "Is the cafe open late on weekends?",
+        "category": "Question",
+        "date": "2024-11-09T11:45:00Z",
+        "replies": {
+            "replyId_1": "Yes, they stay open until 10 PM on Saturdays and Sundays!"
+        },
+        "uid": "user_3"
+    }
+}

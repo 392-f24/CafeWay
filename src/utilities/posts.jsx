@@ -11,11 +11,11 @@ export const findCafePosts = (cafeId) => {
 
         const postsRef = ref(database, `/posts`);
         const postsQuery = query(postsRef, orderByChild('cafeId'), equalTo(cafeId));
-
         const unsubscribe = onValue(
             postsQuery,
             (snapshot) => {
                 if (snapshot.exists()) {
+                    console.log(snapshot.val());
                     setData(snapshot.val());
                 } else {
                     setData([]);
@@ -28,6 +28,5 @@ export const findCafePosts = (cafeId) => {
 
         return () => unsubscribe();
     }, [cafeId]);
-
     return [data, error];
 };
