@@ -2,18 +2,21 @@ import {describe, expect, test} from 'vitest';
 import {fireEvent, render, screen} from '@testing-library/react';
 import App from './App';
 
-describe('counter tests', () => {
-    
-  test("Counter should be 0 at the start", () => {
+describe('launching', () => {
+  it('should show all the headings', async () => {
     render(<App />);
-    expect(screen.getByText('count is: 0')).toBeDefined();
+    await screen.findByText(/CafeWay/);
+    await screen.findByText(/Update Cafe Availability/);
+    await screen.findByText(/Availability History/);
+    await screen.findByText(/Cafes Near Me/);
   });
-
-  test("Counter should increment by one when clicked", async () => {
-    render(<App />);
-    const counter = screen.getByRole('button');
-    fireEvent.click(counter);
-    expect(await screen.getByText('count is: 1')).toBeDefined();
-  });
-
 });
+
+
+describe('authenticating', () => {
+  it('show sign in/sign out button', async () => {
+    render(<App />);
+    await screen.findByText(/Sign In/) || await screen.findByText(/Sign Out/);
+  });
+});
+
