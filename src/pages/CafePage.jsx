@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { findZipcode } from '../utilities/findZipcode';
 import { findCafes } from '../utilities/findCafes';
 import { useAuthState } from '../utilities/firebase';
-import { findCafePosts } from '../utilities/posts';
+import { findCafePosts, addReplyToPost } from '../utilities/posts';
 import Banner from '../components/Banner';
 
 const CafePage = () => {
@@ -13,6 +13,7 @@ const CafePage = () => {
     const [zipcode, setZipcode] = useState(null);
     const [cafes, setCafes] = useState([]);
     const [cafe, setCafe] = useState(null);
+    const [replyMessages, setReplyMessages] = useState({});
 
     useEffect(() => {
         if (user && user.email) {
@@ -46,7 +47,6 @@ const CafePage = () => {
     }, [cafes, place_id]);
 
     const [posts, postError] = findCafePosts(cafe?.placeId);
-    console.log(posts);
 
     if (!cafe) {
         return (
@@ -57,9 +57,30 @@ const CafePage = () => {
         );
     }
 
-    const postItems = posts ? Object.values(posts) : [];
+    const postItems = posts ? Object.entries(posts) : [];
+    const sortedPosts = postItems.sort((a, b) => new Date(b[1].date) - new Date(a[1].date));
 
-    const sortedPosts = postItems.sort((a, b) => new Date(b.date) - new Date(a.date));
+    const handleReplyChange = (e, postId) => {
+        setReplyMessages((prev) => ({
+            ...prev,
+            [postId]: e.target.value,
+        }));
+    };
+
+    const handleAddReply = async (postId) => {
+        const replyMessage = replyMessages[postId];
+        if (replyMessage && replyMessage.trim()) {
+            const error = await addReplyToPost(postId, user?.uid, replyMessage);
+            if (error) {
+                console.error('Error adding reply:', error);
+            } else {
+                setReplyMessages((prev) => ({
+                    ...prev,
+                    [postId]: '',
+                }));
+            }
+        }
+    };
 
     return (
         <div>
@@ -74,7 +95,7 @@ const CafePage = () => {
                     <div className="posts-section">
                         <h2>Posts</h2>
                         <ul className="posts-list">
-                            {sortedPosts.map((post, index) => (
+                            {sortedPosts.map(([postKey, post], index) => (
                                 <li key={index} className="post-item">
                                     <div className="post-header">
                                         <p><strong>Category:</strong> {post.category}</p>
@@ -83,6 +104,7 @@ const CafePage = () => {
                                     <div className="post-content">
                                         <p>{post.content}</p>
                                     </div>
+
                                     {post.replies && Object.entries(post.replies).length > 0 ? (
                                         <div className="replies-section">
                                             <h3>Replies:</h3>
@@ -96,6 +118,24 @@ const CafePage = () => {
                                         </div>
                                     ) : (
                                         <p>No replies for this post.</p>
+                                    )}
+
+                                    {user ? (
+                                        <div className="reply-section">
+                                            <textarea
+                                                value={replyMessages[postKey] || ''} 
+                                                onChange={(e) => handleReplyChange(e, postKey)}
+                                                placeholder="Write your reply..."
+                                            />
+                                            <button 
+                                                onClick={() => handleAddReply(postKey)}
+                                                className="reply-btn"
+                                            >
+                                                Reply
+                                            </button>
+                                        </div>
+                                    ) : (
+                                        <p>Please log in to reply.</p>
                                     )}
                                 </li>
                             ))}
@@ -113,6 +153,6 @@ const CafePage = () => {
             </div>
         </div>
     );
-}
+};
 
 export default CafePage;

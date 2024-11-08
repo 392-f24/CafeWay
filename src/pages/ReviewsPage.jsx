@@ -9,6 +9,7 @@ const ReviewsPage = () => {
     const [user] = useAuthState();
     const [zipcode, setZipcode] = useState(null);
     const [cafes, setCafes] = useState([]);
+    console.log(user);
 
     useEffect(() => {
         const fetchData = async () => {

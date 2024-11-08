@@ -41,7 +41,8 @@ const getZipCode = async (placeId) => {
 
 const getUniversity = (email) => {
   const domain = email.split('@')[1];
-  const university = domain.split('.')[0];
+  console.log(domain);
+  const university = domain.split('.')[1];
   return university;
 }
 
