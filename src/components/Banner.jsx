@@ -2,12 +2,13 @@ import './Banner.css';
 import Icon from '../Icon.svg';
 import Search from '../Search.svg';
 import { handleSignIn } from '../utilities/firebase';
+import { useNavigate } from 'react-router-dom';
 
 export const Banner = () => {
-    // const navigate = useNavigate();
-    // const navigateToReviews = () => {
-    //     navigate('/reviews')
-    // }
+    const navigate = useNavigate();
+    const navigateToReviews = () => {
+        navigate('/cafes')
+    }
     return (
         <div className='banner-div'>
             <div className="logo-search-div">
@@ -19,7 +20,7 @@ export const Banner = () => {
                 </div>
                 <form>
                     <input className="text-input" type="text" placeholder="Search for cafes near you" />
-                    <button className="search-btn"> 
+                    <button className="search-btn" onClick={navigateToReviews}> 
                         <img src={Search}/>
                     </button>
                 </form>

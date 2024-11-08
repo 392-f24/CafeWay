@@ -2,9 +2,11 @@ import React from 'react';
 import '../App.css';
 import MapComponent from "../MapComponent";
 import Banner from '../components/Banner';
+import { useAuthState } from '../utilities/firebase';
 
 const LandingPage = () => {
-
+    const [user] = useAuthState();
+    console.log(user)
     const cafesMap = [
         { name: "Cafe Blue", lat: 42.046, lng: -87.688 },
         { name: "Green Bean Cafe", lat: 42.048, lng: -87.684 },
