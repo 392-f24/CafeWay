@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 const MapComponent = ({ cafes }) => {
   const mapRef = useRef(null);
   const defaultLocation = { lat: 42.0451, lng: -87.6877 };
   const [map, setMap] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!mapRef.current) return;
@@ -42,12 +44,30 @@ const MapComponent = ({ cafes }) => {
             title: cafe.name,
           });
 
+          const infoWindowContent = `
+            <div>
+              <strong>${cafe.name}</strong>
+              <br/>
+              <button id="goto-${cafe.placeId}" style="margin-top: 10px;">Go to Cafe Page</button>
+            </div>
+          `;
+
           const infoWindow = new window.google.maps.InfoWindow({
-            content: `<div><strong>${cafe.name}</strong></div>`,
+            content: infoWindowContent,
           });
 
           marker.addListener("click", () => {
             infoWindow.open(map, marker);
+            
+            // We need to wait for the InfoWindow to be added to the DOM
+            setTimeout(() => {
+              const button = document.getElementById(`goto-${cafe.placeId}`);
+              if (button) {
+                button.addEventListener('click', () => {
+                  navigate(`/cafe/${cafe.placeId}`);
+                });
+              }
+            }, 0);
           });
 
           bounds.extend(position);
@@ -57,7 +77,7 @@ const MapComponent = ({ cafes }) => {
         }
       });
     });
-  }, [cafes, map]);
+  }, [cafes, map, navigate]);
 
   return <div ref={mapRef} style={{ width: "100%", height: "100%" }} />;
 };
