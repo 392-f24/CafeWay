@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { onValue, query, orderByChild, equalTo, ref, get, update } from 'firebase/database';
+import { onValue, query, orderByChild, equalTo, ref, get, update, set, push } from 'firebase/database';
 import { database } from './firebase';
 
 export const findCafePosts = (cafeId) => {
@@ -7,7 +7,7 @@ export const findCafePosts = (cafeId) => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        if (!cafeId) return
+        if (!cafeId) return;
 
         const postsRef = ref(database, `/posts`);
         const postsQuery = query(postsRef, orderByChild('cafeId'), equalTo(cafeId));
@@ -58,5 +58,28 @@ export const addReplyToPost = async (postId, userId, replyMessage) => {
     } catch (error) {
         console.error('Error adding reply:', error);
         return error.message || 'Error adding reply';
+    }
+};
+
+export const addCafePost = async (cafeId, post) => {
+    try {
+        const postsRef = ref(database, `/posts`);
+        const newPostRef = push(postsRef);
+
+        const newPost = {
+            cafeId: cafeId,
+            category: post.category,
+            content: post.content,
+            date: post.date,
+            email: post.email,
+            replies: post.replies || {}
+        };
+
+        await set(newPostRef, newPost);
+
+        return null;
+    } catch (error) {
+        console.error('Error adding cafe post:', error);
+        return error.message || 'Error adding post';
     }
 };

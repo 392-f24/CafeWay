@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { findZipcode } from '../utilities/findZipcode';
 import { findCafes } from '../utilities/findCafes';
 import { useAuthState } from '../utilities/firebase';
-import { findCafePosts, addReplyToPost } from '../utilities/posts';
+import { findCafePosts, addReplyToPost, addCafePost } from '../utilities/posts';
 import Banner from '../components/Banner';
 
 const CafePage = () => {
@@ -14,6 +14,8 @@ const CafePage = () => {
     const [cafes, setCafes] = useState([]);
     const [cafe, setCafe] = useState(null);
     const [replyMessages, setReplyMessages] = useState({});
+    const [newReview, setNewReview] = useState('');
+    const [selectedCategory, setSelectedCategory] = useState('Ambience');
 
     useEffect(() => {
         if (user && user.email) {
@@ -48,17 +50,25 @@ const CafePage = () => {
 
     const [posts, postError] = findCafePosts(cafe?.placeId);
 
-    if (!cafe) {
-        return (
-            <div className="error-message">
-                <h1>Cafe not found</h1>
-                <p>Sorry, we couldn't find a cafe with the specified ID.</p>
-            </div>
-        );
-    }
+    const handleReviewSubmit = async () => {
+        if (newReview.trim() && user) {
+            const review = {
+                content: newReview,
+                category: selectedCategory,
+                email: user.email,
+                date: Date.now(),
+                replies: {}
+            };
 
-    const postItems = posts ? Object.entries(posts) : [];
-    const sortedPosts = postItems.sort((a, b) => new Date(b[1].date) - new Date(a[1].date));
+            const error = await addCafePost(cafe.placeId, review);
+            if (error) {
+                console.error('Error adding review:', error);
+            } else {
+                setNewReview('');
+                setSelectedCategory('Ambience');
+            }
+        }
+    };
 
     const handleReplyChange = (e, postId) => {
         setReplyMessages((prev) => ({
@@ -82,6 +92,18 @@ const CafePage = () => {
         }
     };
 
+    if (!cafe) {
+        return (
+            <div className="error-message">
+                <h1>Cafe not found</h1>
+                <p>Sorry, we couldn't find a cafe with the specified ID.</p>
+            </div>
+        );
+    }
+
+    const postItems = posts ? Object.entries(posts) : [];
+    const sortedPosts = postItems.sort((a, b) => new Date(b[1].date) - new Date(a[1].date));
+
     return (
         <div>
             <Banner cafes={cafes} />
@@ -89,6 +111,28 @@ const CafePage = () => {
                 <div className="cafe-header">
                     <h1>{cafe.name}</h1>
                     <p><strong>Location:</strong> {cafe.vicinity}</p>
+                </div>
+
+                <div className="review-section">
+                    <h2>Share a Review</h2>
+                    <textarea
+                        placeholder="Write your review..."
+                        value={newReview}
+                        onChange={(e) => setNewReview(e.target.value)}
+                        className="review-textarea"
+                    />
+                    <select
+                        value={selectedCategory}
+                        onChange={(e) => setSelectedCategory(e.target.value)}
+                        className="category-dropdown"
+                    >
+                        <option value="Ambience">Ambience</option>
+                        <option value="Seating Availability">Seating Availability</option>
+                        <option value="Outlet Availability">Outlet Availability</option>
+                        <option value="Noise Level">Noise Level</option>
+                        <option value="Food and Drink">Food and Drink</option>
+                    </select>
+                    <button onClick={handleReviewSubmit} className="submit-review-btn">Submit Review</button>
                 </div>
 
                 {sortedPosts && sortedPosts.length > 0 ? (
