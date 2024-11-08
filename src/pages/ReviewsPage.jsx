@@ -36,7 +36,7 @@ const ReviewsPage = () => {
 
     return (
         <div>
-            <Banner />
+            <Banner cafes={cafes}/>
             <CafeList cafes={cafes} />
         </div>
     );

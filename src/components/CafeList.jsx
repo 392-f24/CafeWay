@@ -1,6 +1,12 @@
 import './CafeList.css';
+import { useNavigate } from 'react-router-dom';
 
 const CafeList = ({ cafes }) => {
+    const navigate = useNavigate();
+    const handleClick = (placeId) => {
+        navigate(`/cafe/${placeId}`);
+    };
+
     return (
         <div className="cafe-list-container">
             <div className="filter">
@@ -22,8 +28,12 @@ const CafeList = ({ cafes }) => {
                 </label>
             </div>
             <div className="cafe-list">
-                {cafes.map((cafe, index) => (
-                    <div key={index} className="cafe-card">
+                {cafes.map((cafe) => (
+                    <div 
+                        key={cafe.placeId} 
+                        className="cafe-card" 
+                        onClick={() => handleClick(cafe.placeId)}
+                    >
                         <h3>{cafe.name}</h3>
                         <p>{cafe.vicinity}</p>
                     </div>
