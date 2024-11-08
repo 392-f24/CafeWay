@@ -1,124 +1,75 @@
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .App-header {
-  background-color: #FFF2D7;
-  min-height: 100vh;
+  background-color: #EBEBE5;
+  font-size: 1.5rem;
+  color: #8dbf50;
+  font-weight: bold;
+  padding: 20px;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: #65431F;
 }
 
-.App-link {
-    padding: 8px;
-    border-radius: 5px;
-    border: none;
-    height:27px;
-  }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.page-title {
+  color: #8dbf50;
 }
 
-button {
-  margin-top: 10px;
-  padding: 10px;
-  border-radius: 5px;
-  background-color: #61dafb;
-  background-color: #8A3323;
+.my-post-button {
   border: none;
+  color: #8dbf50;
+  font-weight: bold;
+  background-color: transparent;
+  font-size: 1.25rem;
   cursor: pointer;
-  color:white;
-  height:100%;
 }
 
-.cafe-card{
-  background-color: #8A3323 !important;
-}
-
-.App-header ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.App-header li {
-  margin: 5px 0;
-  background-color: #444;
-  padding: 10px;
-  border-radius: 5px;
+.my-post-button:hover {
   color: white;
 }
 
-.App-header ul {
-  list-style-type: none;
-  padding: 0;
+.cafe-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+  background-color: #FFF2D7;
 }
 
-.App-header li {
-  margin: 10px 0;
-  background-color: #444;
-  padding: 10px;
-  border-radius: 5px;
-  color: white;
+.listings-plant-image, .cafe-image {
+  width: 150px;
+  height: 100px;
+  object-fit: cover;
+  padding-left: 20px;
 }
 
-.App-header li ul {
-  margin-top: 5px;
+.cafe-info {
+  flex: 1;
+  padding-left: 20px;
 }
 
-input {
-  margin: 5px;
-  padding: 8px;
-  border-radius: 5px;
-  border: none;
-}
-.availability-section {
-  margin-top: 20px;
+.cafe-action, .plant-action {
+  text-align: right;
 }
 
-.availability-display {
-  margin-top: 10px;
+.price {
+  font-size: 1.2rem;
+  color: #333;
 }
 
-.availability-item {
-  background-color: #555;
-  padding: 10px;
-  margin-top: 5px;
-  border-radius: 5px;
-}
-
-input {
-  margin: 5px;
-  padding: 8px;
-  border-radius: 5px;
-  border: none;
-}
-
-button {
-  margin-top: 10px;
-  padding: 10px;
-  border-radius: 5px;
-  background-color: #61dafb;
-  border: none;
+.book-btn, .cafe-action button {
+  color: #8dbf50;
+  font-size: 1rem;
+  font-weight: bold;
   cursor: pointer;
+}
+
+.book-btn:hover {
+  background-color: #6f9640;
 }
