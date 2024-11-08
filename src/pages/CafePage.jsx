@@ -15,7 +15,7 @@ const CafePage = () => {
     const [cafe, setCafe] = useState(null);
     const [replyMessages, setReplyMessages] = useState({});
     const [newReview, setNewReview] = useState('');
-    const [selectedCategory, setSelectedCategory] = useState('Ambience');
+    const [selectedCategory, setSelectedCategory] = useState(''); // Default to empty string
 
     useEffect(() => {
         if (user && user.email) {
@@ -51,7 +51,7 @@ const CafePage = () => {
     const [posts, postError] = findCafePosts(cafe?.placeId);
 
     const handleReviewSubmit = async () => {
-        if (newReview.trim() && user) {
+        if (newReview.trim() && selectedCategory && user) {
             const review = {
                 content: newReview,
                 category: selectedCategory,
@@ -65,8 +65,10 @@ const CafePage = () => {
                 console.error('Error adding review:', error);
             } else {
                 setNewReview('');
-                setSelectedCategory('Ambience');
+                setSelectedCategory(''); // Reset to default placeholder
             }
+        } else {
+            alert("Please write a review and select a category.");
         }
     };
 
@@ -126,11 +128,14 @@ const CafePage = () => {
                         onChange={(e) => setSelectedCategory(e.target.value)}
                         className="category-dropdown"
                     >
+                        <option value="" disabled>Select a category</option>
                         <option value="Ambience">Ambience</option>
                         <option value="Seating Availability">Seating Availability</option>
                         <option value="Outlet Availability">Outlet Availability</option>
                         <option value="Noise Level">Noise Level</option>
                         <option value="Food and Drink">Food and Drink</option>
+                        <option value="Question">Question</option>
+                        <option value="Suggestion">Suggestion</option>
                     </select>
                     <button onClick={handleReviewSubmit} className="submit-review-btn">Submit Review</button>
                 </div>
@@ -170,6 +175,7 @@ const CafePage = () => {
                                                 value={replyMessages[postKey] || ''} 
                                                 onChange={(e) => handleReplyChange(e, postKey)}
                                                 placeholder="Write your reply..."
+                                                className="reply-textarea"
                                             />
                                             <button 
                                                 onClick={() => handleAddReply(postKey)}
