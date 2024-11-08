@@ -15,8 +15,14 @@
 }
 
 .cafe-list {
-    display: block;
-    flex-grow: 1;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1rem;
+    overflow-y: auto;
 }
 
 .cafe-card {

@@ -85,9 +85,9 @@ export const Banner = ({ cafes }) => {
             </div>
 
             <div className="banner-buttons">
-                <button className="banner-btn">
+                {/* <button className="banner-btn">
                     Review
-                </button>
+                </button> */}
                 {user ? (
                     <button className="banner-btn" onClick={handleLogout}>
                         Logout
