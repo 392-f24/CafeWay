@@ -27,16 +27,16 @@ const database = getDatabase(app);
 
 export const signInWithGoogle = () => {
     signInWithPopup(auth, provider)
-      .then(async (result) => {
-        console.log('User signed in:', result.user);
-        var zipcode = await findZipcode(result.user.email);
-        console.log("Zipcode: ", zipcode);
-      })
-      .catch((error) => {
-        console.error('Error signing in with Google:', error);
-      });
-  };
-  
+        .then(async (result) => {
+            console.log('User signed in:', result.user);
+            var zipcode = await findZipcode(result.user.email);
+            console.log("Zipcode: ", zipcode);
+        })
+        .catch((error) => {
+            console.error('Error signing in with Google:', error);
+        });
+};
+
 export const firebaseSignOut = () => signOut(auth);
 
 export const useAuthState = () => {
@@ -53,13 +53,13 @@ export const useAuthState = () => {
 export const useDbData = (path) => {
     const [data, setData] = useState();
     const [error, setError] = useState(null);
-  
+
     useEffect(() => {
         const dbRef = ref(database, path);
         const unsubscribe = onValue(
-        dbRef,
-        (snapshot) => setData(snapshot.val()),
-        (error) => setError(error)
+            dbRef,
+            (snapshot) => setData(snapshot.val()),
+            (error) => setError(error)
         );
         return () => unsubscribe();
     }, [path]);
@@ -72,9 +72,9 @@ export const useDbUpdate = (path) => {
 
     const updateData = useCallback(
         (value) => {
-        update(ref(database, path), value)
-            .then(() => setResult({ message: "Update successful", timestamp: Date.now() }))
-            .catch((error) => setResult({ error, message: error.message }));
+            update(ref(database, path), value)
+                .then(() => setResult({ message: "Update successful", timestamp: Date.now() }))
+                .catch((error) => setResult({ error, message: error.message }));
         },
         [path]
     );
@@ -82,4 +82,14 @@ export const useDbUpdate = (path) => {
     return [updateData, result];
 };
 
-export {database};
+export const handleSignIn = async () => {
+    try {
+        await signInWithGoogle();
+    } catch (error) {
+        console.error('Error signing in:', error);
+    }
+};
+
+export const handleLogout = () => firebaseSignOut();
+
+export { database };

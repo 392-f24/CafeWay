@@ -1,8 +1,9 @@
 import './Banner.css';
 import Icon from '../Icon.svg';
 import Search from '../Search.svg';
+import { handleSignIn } from '../utilities/firebase';
 
-const Banner = () => {
+export const Banner = () => {
     // const navigate = useNavigate();
     // const navigateToReviews = () => {
     //     navigate('/reviews')
@@ -27,7 +28,7 @@ const Banner = () => {
                 <button className="banner-btn">
                     Review
                 </button>
-                <button className="banner-btn">
+                <button className="banner-btn" onClick={handleSignIn}>
                     Login
                 </button>
             </div>
@@ -35,4 +36,4 @@ const Banner = () => {
     )
 }
 
-export default Banner
+export default Banner;
