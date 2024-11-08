@@ -22,6 +22,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
+const database = getDatabase(app);
 
 
 export const signInWithGoogle = () => {
@@ -80,3 +81,5 @@ export const useDbUpdate = (path) => {
 
     return [updateData, result];
 };
+
+export {database};
