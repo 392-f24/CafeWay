@@ -5,6 +5,7 @@ import { initializeApp } from "firebase/app";
 import { useEffect, useState, useCallback } from 'react';
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from 'firebase/auth';
 import { getDatabase, ref, onValue, update } from 'firebase/database';
+import { findZipcode } from "./findZipcode";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -26,8 +27,10 @@ const database = getDatabase(app);
 
 export const signInWithGoogle = () => {
     signInWithPopup(auth, provider)
-      .then((result) => {
+      .then(async (result) => {
         console.log('User signed in:', result.user);
+        var zipcode = await findZipcode(result.user.email);
+        console.log("Zipcode: ", zipcode);
       })
       .catch((error) => {
         console.error('Error signing in with Google:', error);

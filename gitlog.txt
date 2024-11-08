@@ -1,0 +1,159 @@
+commit 76691be778d2bafc4daaf51c3d1396704c9ed966
+Author: angelp03 <angelpimentel2025@u.northwestern.edu>
+Date:   Fri Nov 1 13:33:40 2024 -0500
+
+    remove sockets and initialize app
+
+M	src/App.jsx
+M	src/utilities/firebase.js
+
+commit 9a6cff22474def7b66c8e84650446e15f485d2cb
+Author: Mark Fortes <mlgmokus@gmail.com>
+Date:   Wed Oct 30 15:36:41 2024 -0500
+
+    use admin for server side
+
+M	functions/index.js
+M	package-lock.json
+M	package.json
+
+commit e4d1085172b6be70c11556d3f3b7b62f4cb90509
+Author: Mark Fortes <mlgmokus@gmail.com>
+Date:   Wed Oct 30 15:30:59 2024 -0500
+
+    fixed import
+
+M	functions/index.js
+
+commit c7d7f7a412dc284884d533197ce42687a6995dca
+Author: Mark Fortes <mlgmokus@gmail.com>
+Date:   Wed Oct 30 15:28:08 2024 -0500
+
+    refactored to functions/index.js
+
+M	functions/index.js
+D	src/server.js
+
+commit 756f157e5e878a0fe9d628954ef71e4c0d693640
+Author: Mark Fortes <mlgmokus@gmail.com>
+Date:   Wed Oct 30 15:17:11 2024 -0500
+
+    firebase functions implementation
+
+M	firebase.json
+A	functions/.gitignore
+A	functions/index.js
+A	functions/package-lock.json
+A	functions/package.json
+M	src/server.js
+
+commit 3bba338e34c8752e343c8ee6d0141ff0d778e0d7
+Author: Mark Fortes <mlgmokus@gmail.com>
+Date:   Wed Oct 30 13:29:36 2024 -0500
+
+    updated socket url to live site
+
+M	src/App.jsx
+
+commit ee3647a747517158688c307a9ab818764c096cfd
+Author: Mark Fortes <mlgmokus@gmail.com>
+Date:   Wed Oct 30 13:27:10 2024 -0500
+
+    added cors for live site
+
+M	src/server.js
+
+commit f36e9f313789057bd565795602748670a1a35780
+Author: Mark Fortes <mlgmokus@gmail.com>
+Date:   Mon Oct 28 15:12:06 2024 -0500
+
+    changed hosting pointer
+
+M	firebase.json
+
+commit 4100fb4ae9927e4af298ef46c8ad58f599765965
+Author: Mark Fortes <mlgmokus@gmail.com>
+Date:   Mon Oct 28 14:36:18 2024 -0500
+
+    connect socket.io to firebase
+
+M	src/server.js
+M	src/utilities/firebase.js
+
+commit ff6fd01e7fb373e8bd9b9cddb884121bf978683f
+Author: Mark Fortes <mlgmokus@gmail.com>
+Date:   Mon Oct 28 14:35:57 2024 -0500
+
+    restored ui stuff
+
+M	firebase.json
+M	index.html
+M	public/favicon.svg
+M	src/App.css
+M	src/App.jsx
+M	src/index.css
+
+commit 024cd55824e452a1e17f14fc9bcad5b1b771dda0
+Author: Mark Fortes <mlgmokus@gmail.com>
+Date:   Mon Oct 28 14:18:26 2024 -0500
+
+    fixed rewrite
+
+M	firebase.json
+
+commit 1a0706fe597530003861395e76c82953ff7743af
+Author: Mark Fortes <mlgmokus@gmail.com>
+Date:   Mon Oct 28 14:04:59 2024 -0500
+
+    firebase
+
+A	.firebaserc
+A	database.rules.json
+A	firebase.json
+M	package-lock.json
+M	package.json
+A	public/index.html
+A	src/utilities/firebase.js
+
+commit fd0c8277abb3dbbdd43e15babbca91f672153bd6
+Author: VihaanShah26 <vihaanshah2026@u.northwestern.edu>
+Date:   Sun Oct 27 23:38:51 2024 -0500
+
+    Cafes nearby
+
+M	index.html
+M	src/App.jsx
+
+commit b3788e337fa7fe22b10427f6e48cbc81783559d5
+Author: alizenart <97767073+alizenart@users.noreply.github.com>
+Date:   Sun Oct 27 18:16:50 2024 -0500
+
+    Live timing server
+
+M	package-lock.json
+M	package.json
+M	src/App.css
+M	src/App.jsx
+A	src/server.js
+
+commit 590a6bfeeb054a8692dfbfe644f5b6555e488af4
+Author: angelp03 <angelpimentel2025@u.northwestern.edu>
+Date:   Tue Oct 22 22:20:49 2024 -0500
+
+    Initialize app
+
+A	.gitignore
+A	LICENSE
+A	README.md
+A	index.html
+A	package-lock.json
+A	package.json
+A	public/favicon.svg
+A	public/robots.txt
+A	src/App.css
+A	src/App.jsx
+A	src/App.test.jsx
+A	src/index.css
+A	src/index.jsx
+A	src/logo.svg
+A	vite.config.js
