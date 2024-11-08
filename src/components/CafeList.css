@@ -1,0 +1,28 @@
+.cafe-list-container {
+    display: flex;
+    gap: 2rem;
+}
+
+.filter {
+    width: 250px;
+    padding: 1rem;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.cafe-list {
+    display: block;
+    flex-grow: 1;
+}
+
+.cafe-card {
+    width: 100%;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+

@@ -3,6 +3,10 @@ import Icon from '../Icon.svg';
 import Search from '../Search.svg';
 
 const Banner = () => {
+    // const navigate = useNavigate();
+    // const navigateToReviews = () => {
+    //     navigate('/reviews')
+    // }
     return (
         <div className='banner-div'>
             <div className="logo-search-div">
