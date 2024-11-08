@@ -7,7 +7,7 @@
     font-family: 'Hind Vadodara', sans-serif;
     font-weight: bolder;
     color: #8A3323;
-    border-bottom: 1px solid #8A3323;
+    border-bottom: 2px solid #8A3323;
 }
 
 .logo-search-div {
@@ -16,7 +16,7 @@
 }
 
 .logo-div {
-    height:100%;
+    height: 100%;
     display: flex;
     align-items: center;
     margin-right: 3rem;
@@ -31,11 +31,14 @@
 .logo-search-div form {
     display: flex;
     align-items: center;
+    position: relative;  /* Allow positioning of the autocomplete dropdown */
 }
 
 .text-input {
     width: 22rem;
-    height: 1.5rem;
+    height: 2rem;
+    border-top: none;
+    border-left: none;
     border-bottom: 1px solid black;
     border-radius: 0;
     padding-left: 0.5rem;
@@ -46,7 +49,7 @@
 }
 
 .search-btn {
-    height: 2.6rem;
+    height: 2.3rem;
     width: 3rem;
     background-color: #8A3323;
     border: none;
@@ -54,10 +57,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 0.65rem;
+    border-top: none;
+    border-left: none;
+    border-right: none;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     border-bottom: 1px solid black;
+    border-top-right-radius: 0.25rem;
 }
 
 .banner-buttons {
@@ -68,7 +74,7 @@
 
 .banner-btn {
     text-align: center;
-    height:2.45rem;
+    height: 2.45rem;
     width: 8rem;
     background-color: #8A3323;
     color: white;
@@ -83,4 +89,30 @@
 
 .banner-btn:hover {
     background-color: #a85c43;
+}
+
+/* Autocomplete Dropdown */
+.autocomplete-dropdown {
+    position: absolute;
+    top: 100%;  /* Align directly below the input field */
+    left: 0;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 0.25rem;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 10;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 22rem;  /* Match the width of the input field */
+}
+
+.autocomplete-item {
+    padding: 10px;
+    cursor: pointer;
+    font-family: 'Hind Vadodara', sans-serif;
+}
+
+.autocomplete-item:hover {
+    background-color: #f0f0f0;
 }

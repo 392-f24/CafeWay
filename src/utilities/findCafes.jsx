@@ -15,7 +15,11 @@ export const findCafes = (dist, address, setCafes) => {
           },
           (results, status) => {
             if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-              setCafes(results.map((place) => place.name));
+              setCafes(results.map((place) => ({
+                name: place.name,
+                placeId: place.place_id,
+                vicinity: place.vicinity
+              })));
             } else {
               alert("No cafes found within the specified radius.");
               setCafes([]); 
