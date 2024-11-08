@@ -1,14 +1,17 @@
 import './Banner.css';
 import Icon from '../Icon.svg';
 import Search from '../Search.svg';
-import { handleSignIn } from '../utilities/firebase';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { handleSignIn, handleLogout, useAuthState } from '../utilities/firebase';
 
 export const Banner = ({ cafes }) => {
     const navigate = useNavigate();
     const [searchText, setSearchText] = useState('');
     const [filteredCafes, setFilteredCafes] = useState([]);
+    
+    const [user] = useAuthState(); 
+
     const handleInputChange = (e) => {
         const text = e.target.value;
         setSearchText(text);
@@ -28,7 +31,6 @@ export const Banner = ({ cafes }) => {
         setFilteredCafes([]);
         navigate(`/cafe/${cafe.placeId}`);
     };
-
 
     const handleSearch = (e) => {
         e.preventDefault();
@@ -53,9 +55,7 @@ export const Banner = ({ cafes }) => {
             <div className="logo-search-div">
                 <div className='logo-div'>
                     <img src={Icon} alt="CafeWay Logo" />
-                    <h1>
-                        CafeWay
-                    </h1>
+                    <h1>CafeWay</h1>
                 </div>
                 <form onSubmit={handleSearch}>
                     <input
@@ -83,13 +83,20 @@ export const Banner = ({ cafes }) => {
                     )}
                 </form>
             </div>
+
             <div className="banner-buttons">
                 <button className="banner-btn">
                     Review
                 </button>
-                <button className="banner-btn" onClick={handleSignIn}>
-                    Login
-                </button>
+                {user ? (
+                    <button className="banner-btn" onClick={handleLogout}>
+                        Logout
+                    </button>
+                ) : (
+                    <button className="banner-btn" onClick={handleSignIn}>
+                        Login
+                    </button>
+                )}
             </div>
         </div>
     );

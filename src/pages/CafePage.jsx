@@ -57,22 +57,24 @@ const CafePage = () => {
         );
     }
 
-    const postItems = posts ? Object.values(posts) : []; 
+    const postItems = posts ? Object.values(posts) : [];
+
+    const sortedPosts = postItems.sort((a, b) => new Date(b.date) - new Date(a.date));
 
     return (
         <div>
-            <Banner cafes={cafes}/>
+            <Banner cafes={cafes} />
             <div className="cafe-page-container">
                 <div className="cafe-header">
                     <h1>{cafe.name}</h1>
                     <p><strong>Location:</strong> {cafe.vicinity}</p>
                 </div>
 
-                {postItems && postItems.length > 0 ? (
+                {sortedPosts && sortedPosts.length > 0 ? (
                     <div className="posts-section">
                         <h2>Posts</h2>
                         <ul className="posts-list">
-                            {postItems.map((post, index) => (
+                            {sortedPosts.map((post, index) => (
                                 <li key={index} className="post-item">
                                     <div className="post-header">
                                         <p><strong>Category:</strong> {post.category}</p>
