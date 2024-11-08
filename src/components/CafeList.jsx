@@ -9,7 +9,7 @@ const CafeList = ({ cafes }) => {
 
     return (
         <div className="cafe-list-container">
-            <div className="filter">
+            {/* <div className="filter">
                 <h4>Filter Options</h4>
                 <label>
                     Rating:
@@ -26,7 +26,7 @@ const CafeList = ({ cafes }) => {
                     Location:
                     <input type="text" placeholder="Search by location" />
                 </label>
-            </div>
+            </div> */}
             <div className="cafe-list">
                 {cafes.map((cafe) => (
                     <div 
