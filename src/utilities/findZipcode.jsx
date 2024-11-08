@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 const getPlaceId = async (collegeName) => {
   return new Promise((resolve, reject) => {
     if (!window.google) return reject("Google API not loaded");
